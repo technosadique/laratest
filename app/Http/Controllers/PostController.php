@@ -80,7 +80,7 @@ class PostController extends Controller
 	public function generate_pdf(){
 		$posts = Post::orderby('title','DESC')->get();
 		$html = view('sample-pdf-view',['posts'=>$posts]); 		
-		$mpdf =new \Mpdf\Mpdf(['default_font' => 'A_Nefel_Botan']);			
+		$mpdf = new \Mpdf\Mpdf(['tempDir' => storage_path('app/tmp')]);		
 		//$stylesheet = file_get_contents(BASE_URL.'public/assets/css/pdf.css'); // external css
 		//$mpdf->WriteHTML($stylesheet,1);  
 		$mpdf->WriteHTML($html);   
@@ -88,28 +88,7 @@ class PostController extends Controller
 		exit;
 
 	}
-	
-	/* public function generate_csv(){       
-		$report_data = Post::orderby('title','DESC')->get();		
-		$f = fopen('php://memory', 'w'); // Set header
-		$seq = 1;
-        $header = ['Sl No.', 'Title'];
-		fputcsv($f, $header, ',');
-		
-		foreach ($report_data as $row) {
-			$row_data = [	
-                    $seq++,					
-					($row['title'])					
-				];				
-				// Generate csv lines from the inner arrays
-				fputcsv($f, $row_data, ','); 
-		}
-		fseek($f, 0);
-		header('Content-Type: text/csv');
-		header('Content-Disposition: attachment; filename="Post_Report' . '_' . date('dmy') . '.csv";');
-		fpassthru($f);	
-		
-	} */
+
 	
 	public function download_csv(){
 		  
