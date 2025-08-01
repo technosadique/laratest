@@ -19,17 +19,9 @@ class PostController extends Controller
 		 $this->postservice=$postservice;
 	 }
 	 
-	function index(Request $req){ 
-	//echo greet_user('john doe');		
-		//$posts = Post::orderby('title','DESC')->paginate(5);
-		//$posts = DB::table('posts')->orderby('title','DESC')->paginate(10);
-		
-		$posts=$this->postservice->getAllPost();	
-		
-		return view('list-view',['posts'=>$posts]);	
-
-		//$view = view('list-view',['posts'=>$posts]);
-		//echo $view->render();
+	function index(Request $req){ 		
+		$posts=$this->postservice->getAllPost();			
+		return view('list-view',['posts'=>$posts]);		
 	}
 	
 	function create(Request $req){ 	
